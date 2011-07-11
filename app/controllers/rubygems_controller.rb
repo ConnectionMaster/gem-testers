@@ -1,5 +1,6 @@
 require 'rss_feed'
 require 'show_paged'
+require 'chart'
 
 class RubygemsController < ApplicationController
 
@@ -18,7 +19,7 @@ class RubygemsController < ApplicationController
   end
 
   def show
-    @rubygem = Rubygem.where(name: params[:id]).last || Rubygem.where(id: params[:id]).last
+    @rubygem = Rubygem.where(name: params[:id]).last
     @platform = params[:platform] unless params[:platform].blank?
 
     respond_to do |format|
@@ -45,8 +46,14 @@ class RubygemsController < ApplicationController
     end
   end
 
-  def feed
+  def charts
+    @rubygem = Rubygem.where(name: params[:rubygem_id]).last
+    pass_fail_by_version = @rubygem.versions.map { |v| [v.number, v.pass_count, v.fail_count] }
 
+    @chart = GoogleChart::Column.new(["Version", "Pass Count", "Fail Count"], pass_fail_by_version)
+  end
+
+  def feed
     rubygem = Rubygem.where(name: params[:rubygem_id]).last
 
     unless rubygem

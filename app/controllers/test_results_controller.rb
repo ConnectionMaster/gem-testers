@@ -82,7 +82,7 @@ class TestResultsController < ApplicationController
       format.html
     end
   end
-  
+
   private
 
   def bubble_errors_from object

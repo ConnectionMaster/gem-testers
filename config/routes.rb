@@ -5,6 +5,7 @@ GemTesters::Application.routes.draw do
     constraints id: Rubygem::ROUTE_MATCHER do
       get '/feed' => 'rubygems#feed', as: 'feed', format: :xml
       get '/paged.:format' => 'rubygems#show_paged', as: 'paged'
+      get '/charts' => 'rubygems#charts', as: 'charts'
       resources :versions, path: 'v' do
         get '/paged' => 'versions#show_paged', as: 'paged', format: :json
         get '/:id' => "versions#show", as: 'show', format: [:html, :json]

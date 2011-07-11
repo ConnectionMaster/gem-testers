@@ -1,0 +1,11 @@
+- content_for :javascripts do
+  %script{:type => "text/javascript", :src => "https://www.google.com/jsapi"}
+  :javascript
+    #{@chart.preamble}
+    google.setOnLoadCallback(drawChart);
+    function drawChart() {
+      #{@chart.prepare_data}
+      #{@chart.draw_chart('Pass/Fail by Version', 'Version')}
+    }
+
+#chart_div
