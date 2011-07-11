@@ -29,22 +29,29 @@ module GoogleChart
     end
 
     def prepare_data 
-      javascript <<-EOF
+      javascript = <<-EOF
         var data = new google.visualization.DataTable();
       EOF
 
-      column_names.each do |column_name|
-        javascript += "data.addColumn('string', '#{column_name}');\n"
+      column_names.each_with_index do |column_name, i|
+        case set[0][i]
+        when Numeric
+          javascript += "data.addColumn('number', "
+        else
+          javascript += "data.addColumn('string', "
+        end
+        
+        javascript += "'#{column_name}');\n"
       end
 
       javascript += "data.addRows(#{set.size});\n"
 
       set.each_with_index do |row, i|
         row.each_with_index do |item, j|
-          javascript += "data.setValue(#{i}, #{j},"
+          javascript += "data.setValue(#{i}, #{j}, "
           case item
           when Numeric
-            javascript += item + ");\n"
+            javascript += item.to_s + ");\n"
           else
             javascript += "'#{item}');\n"
           end

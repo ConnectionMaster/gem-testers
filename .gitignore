@@ -8,3 +8,8 @@ tmp/**/*
 config/database.yml
 *.css
 config/mail_password
+public/javascripts/controls.js
+public/javascripts/dragdrop.js
+public/javascripts/effects.js
+public/javascripts/prototype.js
+public/javascripts/rails.js
