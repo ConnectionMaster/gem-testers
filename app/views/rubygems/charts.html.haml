@@ -5,7 +5,17 @@
     google.setOnLoadCallback(drawChart);
     function drawChart() {
       #{@chart.prepare_data}
-      #{@chart.draw_chart('Pass/Fail by Version', 'Version')}
+      #{@chart.draw_chart('Pass/Fail by Version', 'Version', 'pass_fail_chart')}
     }
 
-#chart_div
+- content_for :stylesheets do
+  = stylesheet_link_tag 'test_results'
+
+#results.top-section
+  %div
+    = render :partial => "shared/rubygem", :locals => {:rubygem => @rubygem, :version => nil}
+    %a.version{:href => "http://rubygems.org/gems/#{@rubygem.name}"} [rubygems.org]
+  .clear
+
+  #chart_wrapper
+    #pass_fail_chart

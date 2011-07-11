@@ -14,12 +14,16 @@
   .nav
     = version_select(@rubygem, @version, @platform)
     = platform_select(@all_test_results, @rubygem, @platform, @version)
-    %a.version{:href => "http://rubygems.org/gems/#{@rubygem.name}"} [rubygems.org]
   -# FIXME fix these styles erik
   %div{:style => "float: right; line-height: 150%"}
     %h3 Authors:
     - @rubygem.authors.each do |author|
       %h3{:style => "display: block"}=link_to author.name, gems_author_path(author), :title => "See other gems by #{author.name}"
+  .clear
+
+  .nav
+    %a{:href => "http://rubygems.org/gems/#{@rubygem.name}"} [rubygems.org]
+    %a{:href => rubygem_charts_url(@rubygem.name)} [charts]
   .clear
 
   = render :partial => "shared/test_results_summary"

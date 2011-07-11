@@ -50,6 +50,11 @@ class RubygemsController < ApplicationController
     @rubygem = Rubygem.where(name: params[:rubygem_id]).last
     pass_fail_by_version = @rubygem.versions.map { |v| [v.number, v.pass_count, v.fail_count] }
 
+    # we only care about the last few - FIXME this probably should be done at the database
+    if pass_fail_by_version.length > 5
+      pass_fail_by_version = pass_fail_by_version[-5..-1]
+    end
+
     @chart = GoogleChart::Column.new(["Version", "Pass Count", "Fail Count"], pass_fail_by_version)
   end
 
