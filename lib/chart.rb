@@ -18,10 +18,6 @@ module GoogleChart
         raise ArgumentError, "please use an array of array."
       end
 
-      unless variable_name
-        raise ArgumentError, "damnit. really?"
-      end
-
       @set           = set
       @column_names  = column_names
     end
@@ -38,7 +34,7 @@ module GoogleChart
       EOF
 
       column_names.each do |column_name|
-        javascript += "data.addColumn('string', '#{column_name.gsub(/'/, "\\'")}');\n"
+        javascript += "data.addColumn('string', '#{column_name}');\n"
       end
 
       javascript += "data.addRows(#{set.size});\n"
