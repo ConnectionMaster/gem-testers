@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
 gem 'rack'
-gem 'rails', '~> 3.0.7'
+gem 'rails', '~> 3.0.10'
 gem 'mysql2', '~> 0.2.0'
 gem 'capistrano'
 gem 'haml'
